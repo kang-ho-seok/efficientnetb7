@@ -100,7 +100,7 @@ class EfficientNet_B7(nn.Module):
 
     stochastic_depth_p = 0.2
     cfgs = [
-           #[k, t,  c, n, s]
+           #[k, t,  c, n, s] # kernel, expansion, out_channels, num_blocks, stride
             [3, 1, 16, 1, 1],
             [3, 6, 24, 2, 2],
             [5, 6, 40, 2, 2],
@@ -378,7 +378,7 @@ model.fc[1] = nn.Linear(in_features=in_features, out_features=10, bias=True)
 
 optimizer = optim.RMSprop(model.parameters(), lr=0.001, alpha=0.9 ,weight_decay=1e-4)
 criterion = nn.CrossEntropyLoss()
-lr_scheduler = lrs.StepLR(optimizer, step_size=10, gamma=0.97)
+lr_scheduler = lrs.StepLR(optimizer, step_size=2, gamma=0.97)
 
 train_accuracy, val_accuracy, train_loss, val_loss = train_model(model, train_loader, val_loader, criterion, lr_scheduler, optimizer, num_epochs=num_epochs)
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5), facecolor="w")
